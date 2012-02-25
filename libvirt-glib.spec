@@ -2,27 +2,30 @@
 # Conditional build:
 %bcond_without	apidocs		# do not build and package API docs
 %bcond_without	static_libs	# don't build static libraries
+%bcond_without	vala		# Vala binding
 #
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
-Version:	0.0.4
+Version:	0.0.5
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
-# Source0-md5:	70b5fd71a784df41eb2fe1404526eb88
+# Source0-md5:	6cebd7fb6de8001ac88f7793e273b987
 URL:		http://www.libvirt.org/
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	glib2-devel >= 1:2.16.0
+BuildRequires:	autoconf >= 2.50
+BuildRequires:	automake >= 1:1.11
+BuildRequires:	glib2-devel >= 1:2.22.0
 BuildRequires:	gobject-introspection-devel >= 0.10.8
 BuildRequires:	gtk-doc >= 1.10
 BuildRequires:	libtool
-BuildRequires:	libvirt-devel >= 0.9.7
-BuildRequires:	libxml2-devel
+BuildRequires:	libvirt-devel >= 0.9.10
+BuildRequires:	libxml2-devel >= 2.0.0
 BuildRequires:	pkgconfig
-BuildRequires:	vala
+%{?with_vala:BuildRequires:	vala >= 0.13}
+Requires:	glib2 >= 1:2.22.0
+Requires:	libvirt >= 0.9.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -36,8 +39,8 @@ Summary:	Header files for libvirt-glib library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libvirt-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.16.0
-Requires:	libxml2-devel
+Requires:	glib2-devel >= 1:2.22.0
+Requires:	libxml2-devel >= 2.0.0
 
 %description devel
 Header files for libvirt-glib library.
@@ -178,9 +181,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/libvirtglibmod.so
 %{py_sitedir}/libvirtglib.py[co]
 
+%if %{with vala}
 %files -n vala-libvirt-glib
 %defattr(644,root,root,755)
 %{_datadir}/vala/vapi/libvirt-gconfig-1.0.vapi
 %{_datadir}/vala/vapi/libvirt-glib-1.0.vapi
 %{_datadir}/vala/vapi/libvirt-gobject-1.0.deps
 %{_datadir}/vala/vapi/libvirt-gobject-1.0.vapi
+%endif
