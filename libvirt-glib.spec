@@ -7,12 +7,12 @@
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
-Version:	0.0.5
+Version:	0.0.6
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
-# Source0-md5:	6cebd7fb6de8001ac88f7793e273b987
+# Source0-md5:	0d6f8f467fcc7afbd506ed2191c88ce3
 URL:		http://www.libvirt.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.11
