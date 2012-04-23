@@ -13,6 +13,7 @@ License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
 # Source0-md5:	6b55eb5ac75ec2e246b1d8b8a59e3a0f
+Patch0:		%{name}-pc.patch
 URL:		http://www.libvirt.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.11
@@ -40,6 +41,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libvirt-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.22.0
+Requires:	libvirt-devel >= 0.9.10
 Requires:	libxml2-devel >= 2.0.0
 
 %description devel
@@ -98,6 +100,7 @@ API libvirt-glib dla języka Vala.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
