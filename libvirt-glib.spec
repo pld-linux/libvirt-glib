@@ -7,12 +7,12 @@
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
-Version:	0.0.8
+Version:	0.0.9
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
-# Source0-md5:	cc0913fdf1011558e81e7de4b00c7d1f
+# Source0-md5:	598c1561bdb5637d23f1a40d3e696ce1
 Patch0:		%{name}-pc.patch
 URL:		http://www.libvirt.org/
 BuildRequires:	autoconf >= 2.50
@@ -24,6 +24,7 @@ BuildRequires:	libtool
 BuildRequires:	libvirt-devel >= 0.9.10
 BuildRequires:	libxml2-devel >= 2.0.0
 BuildRequires:	pkgconfig
+BuildRequires:	python-devel
 %{?with_vala:BuildRequires:	vala >= 0.13}
 Requires:	glib2 >= 1:2.22.0
 Requires:	libvirt >= 0.9.10
