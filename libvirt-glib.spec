@@ -7,12 +7,12 @@
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
-Version:	0.1.2
+Version:	0.1.3
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
-# Source0-md5:	47e6307c5e0b158d5ceee65f3956065e
+# Source0-md5:	46f05819906945ab7d7acbe0c28da15c
 Patch0:		%{name}-pc.patch
 URL:		http://www.libvirt.org/
 BuildRequires:	autoconf >= 2.50
@@ -21,13 +21,13 @@ BuildRequires:	glib2-devel >= 1:2.22.0
 BuildRequires:	gobject-introspection-devel >= 0.10.8
 BuildRequires:	gtk-doc >= 1.10
 BuildRequires:	libtool
-BuildRequires:	libvirt-devel >= 0.9.10
+BuildRequires:	libvirt-devel >= 0.10.2
 BuildRequires:	libxml2-devel >= 2.0.0
 BuildRequires:	pkgconfig
 BuildRequires:	python-devel
 %{?with_vala:BuildRequires:	vala >= 0.13}
 Requires:	glib2 >= 1:2.22.0
-Requires:	libvirt >= 0.9.10
+Requires:	libvirt >= 0.10.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -42,7 +42,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libvirt-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.22.0
-Requires:	libvirt-devel >= 0.9.10
+Requires:	libvirt-devel >= 0.10.2
 Requires:	libxml2-devel >= 2.0.0
 
 %description devel
