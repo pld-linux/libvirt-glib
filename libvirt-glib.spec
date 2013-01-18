@@ -7,13 +7,14 @@
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
-Version:	0.1.4
+Version:	0.1.5
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
-# Source0-md5:	4a5ae95132b998b3bd58d2bd058cd5a9
+# Source0-md5:	6a82855acef53293026604b72aab9cdb
 Patch0:		%{name}-pc.patch
+Patch1:		%{name}-am.patch
 URL:		http://www.libvirt.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.11
@@ -102,6 +103,7 @@ API libvirt-glib dla języka Vala.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}

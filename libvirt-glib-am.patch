@@ -1,0 +1,11 @@
+--- libvirt-glib-0.1.5/configure.ac.orig	2013-01-14 17:52:03.000000000 +0100
++++ libvirt-glib-0.1.5/configure.ac	2013-01-18 21:16:15.405873548 +0100
+@@ -1,7 +1,7 @@
+ AC_INIT(libvirt-glib, 0.1.5)
+ AC_CONFIG_SRCDIR(libvirt-glib/libvirt-glib-main.c)
+ AC_CONFIG_AUX_DIR([build-aux])
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ AC_CONFIG_MACRO_DIR([m4])
+ dnl Make automake keep quiet about wildcards & other GNUmake-isms
+ AM_INIT_AUTOMAKE([-Wno-portability])
