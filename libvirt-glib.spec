@@ -7,14 +7,13 @@
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
-Version:	0.1.6
+Version:	0.1.7
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
-# Source0-md5:	85e09b6dcf5ee0438eeed8f2f2648242
+# Source0-md5:	75a43b85e19aa711f04c1c7acbe1d777
 Patch0:		%{name}-pc.patch
-Patch1:		%{name}-am.patch
 URL:		http://www.libvirt.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.11
@@ -103,7 +102,6 @@ API libvirt-glib dla języka Vala.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -112,10 +110,10 @@ API libvirt-glib dla języka Vala.
 %{__autoheader}
 %{__automake}
 %configure \
-	--disable-silent-rules \
-	--with-html-dir=%{_gtkdocdir} \
 	%{__enable_disable apidocs gtk-doc} \
-	%{!?with_static_libs:--disable-static}
+	--disable-silent-rules \
+	%{?with_static_libs:--enable-static} \
+	--with-html-dir=%{_gtkdocdir}
 %{__make}
 
 %install
@@ -128,7 +126,8 @@ rm -rf $RPM_BUILD_ROOT
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
-%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/*.{a,la}
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/*.la \
+	%{?with_static_libs:$RPM_BUILD_ROOT%{py_sitedir}/*.a}
 
 %py_postclean
 
