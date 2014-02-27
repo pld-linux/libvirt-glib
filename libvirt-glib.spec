@@ -7,12 +7,12 @@
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
-Version:	0.1.7
+Version:	0.1.8
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
-# Source0-md5:	75a43b85e19aa711f04c1c7acbe1d777
+# Source0-md5:	6451635cb7912998ebb7b43036ef6508
 Patch0:		%{name}-pc.patch
 URL:		http://www.libvirt.org/
 BuildRequires:	autoconf >= 2.50
@@ -131,13 +131,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %py_postclean
 
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_libdir}/libvirt-gconfig-1.0.so.*.*.*
