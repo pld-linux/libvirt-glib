@@ -7,17 +7,17 @@
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
-Version:	0.1.9
+Version:	0.2.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
-# Source0-md5:	7665a30c7eec8f5b34f69dca5b9236b9
+# Source0-md5:	ddfe8490af8263f3423aeb492afd7932
 Patch0:		%{name}-pc.patch
 URL:		http://www.libvirt.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	glib2-devel >= 1:2.36.0
+BuildRequires:	glib2-devel >= 1:2.38.0
 BuildRequires:	gobject-introspection-devel >= 0.10.8
 BuildRequires:	gtk-doc >= 1.10
 BuildRequires:	intltool >= 0.35.0
@@ -131,6 +131,9 @@ rm -rf $RPM_BUILD_ROOT
 	%{?with_static_libs:$RPM_BUILD_ROOT%{py_sitedir}/*.a}
 
 %py_postclean
+
+# empty version of ru
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ru_RU
 
 %find_lang %{name}
 
