@@ -3,12 +3,12 @@
 %bcond_without	apidocs		# do not build and package API docs
 %bcond_without	static_libs	# don't build static libraries
 %bcond_without	vala		# Vala binding
-#
+
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
 Version:	0.2.2
-Release:	2
+Release:	3
 License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
@@ -93,6 +93,9 @@ Summary:	libvirt-glib API for Vala language
 Summary(pl.UTF-8):	API libvirt-glib dla języka Vala
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description -n vala-libvirt-glib
 libvirt-glib API for Vala language.
