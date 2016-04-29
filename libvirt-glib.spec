@@ -8,7 +8,7 @@ Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
 Version:	0.2.2
-Release:	3
+Release:	4
 License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
@@ -69,6 +69,9 @@ Summary:	libvirt-glib API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libvirt-glib
 Group:		Documentation
 Requires:	gtk-doc-common
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API documentation for libvirt-glib library.
