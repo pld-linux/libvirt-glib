@@ -1,9 +1,0 @@
---- libvirt-glib-0.0.7/libvirt-glib-1.0.pc.in.orig	2012-03-30 16:48:58.000000000 +0200
-+++ libvirt-glib-0.0.7/libvirt-glib-1.0.pc.in	2012-04-23 18:20:37.064193055 +0200
-@@ -8,5 +8,5 @@
- Description: libvirt glib library
- Requires: glib-2.0
- Libs: -L${libdir} -lvirt-glib-1.0
--Libs.private: @LIBVIRT_LIBS @GLIB2_LIBS@
-+Libs.private: @LIBVIRT_LIBS@ @GLIB2_LIBS@
- Cflags: -I${includedir}/libvirt-glib-1.0 @LIBVIRT_CFLAGS@ @GLIB2_CFLAGS@

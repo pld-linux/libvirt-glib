@@ -7,28 +7,27 @@
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
-Version:	0.2.2
-Release:	4
+Version:	1.0.0
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
-# Source0-md5:	705f0bd0b6231cb71f4eb916f4dc4714
-Patch0:		%{name}-pc.patch
+# Source0-md5:	cb1332e97c175606306fe8966f8243af
 URL:		http://www.libvirt.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	glib2-devel >= 1:2.38.0
-BuildRequires:	gobject-introspection-devel >= 0.10.8
+BuildRequires:	gobject-introspection-devel >= 1.36.0
 BuildRequires:	gtk-doc >= 1.10
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libtool >= 2:2
-BuildRequires:	libvirt-devel >= 0.10.2
+BuildRequires:	libvirt-devel >= 1.1.1
 BuildRequires:	libxml2-devel >= 2.0.0
 BuildRequires:	pkgconfig
-BuildRequires:	python-devel >= 2
 %{?with_vala:BuildRequires:	vala >= 0.13}
 Requires:	glib2 >= 1:2.36.0
-Requires:	libvirt >= 0.10.2
+Requires:	libvirt >= 1.1.1
+Obsoletes:	python-libvirt-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -79,18 +78,6 @@ API documentation for libvirt-glib library.
 %description apidocs -l pl.UTF-8
 Dokumentacja API biblioteki libvirt-glib.
 
-%package -n python-libvirt-glib
-Summary:	Python bindings for libvirt-glib library
-Summary(pl.UTF-8):	Wiązania Pythona do biblioteki libvirt-glib
-Group:		Libraries/Python
-Requires:	%{name} = %{version}-%{release}
-
-%description -n python-libvirt-glib
-Python bindings for libvirt-glib library.
-
-%description -n python-libvirt-glib -l pl.UTF-8
-Wiązania Pythona do biblioteki libvirt-glib.
-
 %package -n vala-libvirt-glib
 Summary:	libvirt-glib API for Vala language
 Summary(pl.UTF-8):	API libvirt-glib dla języka Vala
@@ -108,7 +95,6 @@ API libvirt-glib dla języka Vala.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -129,14 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%py_comp $RPM_BUILD_ROOT%{py_sitedir}
-%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
-
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
-%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/*.la \
-	%{?with_static_libs:$RPM_BUILD_ROOT%{py_sitedir}/*.a}
-
-%py_postclean
 
 %find_lang %{name}
 
@@ -189,11 +168,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_gtkdocdir}/Libvirt-glib
 %{_gtkdocdir}/Libvirt-gobject
 %endif
-
-%files -n python-libvirt-glib
-%defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/libvirtglibmod.so
-%{py_sitedir}/libvirtglib.py[co]
 
 %if %{with vala}
 %files -n vala-libvirt-glib
