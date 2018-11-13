@@ -7,12 +7,12 @@
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
-Version:	1.0.0
+Version:	2.0.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
-# Source0-md5:	cb1332e97c175606306fe8966f8243af
+# Source0-md5:	b470b5524c29b61a8ce8e0d094e6c835
 URL:		http://www.libvirt.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.11
@@ -21,12 +21,12 @@ BuildRequires:	gobject-introspection-devel >= 1.36.0
 BuildRequires:	gtk-doc >= 1.10
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libtool >= 2:2
-BuildRequires:	libvirt-devel >= 1.1.1
+BuildRequires:	libvirt-devel >= 1.2.8
 BuildRequires:	libxml2-devel >= 2.0.0
 BuildRequires:	pkgconfig
 %{?with_vala:BuildRequires:	vala >= 0.13}
 Requires:	glib2 >= 1:2.36.0
-Requires:	libvirt >= 1.1.1
+Requires:	libvirt >= 1.2.8
 Obsoletes:	python-libvirt-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
