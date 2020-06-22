@@ -7,13 +7,14 @@
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
-Version:	2.0.0
+Version:	3.0.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
-# Source0-md5:	b470b5524c29b61a8ce8e0d094e6c835
-URL:		http://www.libvirt.org/
+# Source0-md5:	1c9a7c43118ba44e7b8eacc9c105f498
+Patch0:		%{name}-gtkdoc.patch
+URL:		https://libvirt.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	glib2-devel >= 1:2.38.0
@@ -25,7 +26,7 @@ BuildRequires:	libvirt-devel >= 1.2.8
 BuildRequires:	libxml2-devel >= 2.0.0
 BuildRequires:	pkgconfig
 %{?with_vala:BuildRequires:	vala >= 0.13}
-Requires:	glib2 >= 1:2.36.0
+Requires:	glib2 >= 1:2.38.0
 Requires:	libvirt >= 1.2.8
 Obsoletes:	python-libvirt-glib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -41,8 +42,8 @@ Summary:	Header files for libvirt-glib library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libvirt-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.36.0
-Requires:	libvirt-devel >= 0.10.2
+Requires:	glib2-devel >= 1:2.38.0
+Requires:	libvirt-devel >= 1.2.8
 Requires:	libxml2-devel >= 2.0.0
 
 %description devel
@@ -68,7 +69,7 @@ Summary:	libvirt-glib API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libvirt-glib
 Group:		Documentation
 Requires:	gtk-doc-common
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -83,7 +84,7 @@ Summary:	libvirt-glib API for Vala language
 Summary(pl.UTF-8):	API libvirt-glib dla języka Vala
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -95,6 +96,7 @@ API libvirt-glib dla języka Vala.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
