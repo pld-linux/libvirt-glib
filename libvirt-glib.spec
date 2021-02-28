@@ -69,9 +69,7 @@ Summary:	libvirt-glib API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libvirt-glib
 Group:		Documentation
 Requires:	gtk-doc-common
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 API documentation for libvirt-glib library.
@@ -84,9 +82,7 @@ Summary:	libvirt-glib API for Vala language
 Summary(pl.UTF-8):	API libvirt-glib dla języka Vala
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description -n vala-libvirt-glib
 libvirt-glib API for Vala language.
