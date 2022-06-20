@@ -1,34 +1,38 @@
 #
 # Conditional build:
-%bcond_without	apidocs		# do not build and package API docs
-%bcond_without	static_libs	# don't build static libraries
+%bcond_without	apidocs		# API documentation
+%bcond_without	static_libs	# static libraries
 %bcond_without	vala		# Vala binding
 
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
-Version:	3.0.0
+Version:	4.0.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
-# Source0-md5:	1c9a7c43118ba44e7b8eacc9c105f498
-Patch0:		%{name}-gtkdoc.patch
+Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.xz
+# Source0-md5:	0d0932949cde8a8933f6fb6aaf66dfe0
 URL:		https://libvirt.org/
-BuildRequires:	autoconf >= 2.50
-BuildRequires:	automake >= 1:1.11
-BuildRequires:	glib2-devel >= 1:2.38.0
+BuildRequires:	glib2-devel >= 1:2.48.0
 BuildRequires:	gobject-introspection-devel >= 1.36.0
 BuildRequires:	gtk-doc >= 1.10
 BuildRequires:	intltool >= 0.35.0
-BuildRequires:	libtool >= 2:2
 BuildRequires:	libvirt-devel >= 1.2.8
-BuildRequires:	libxml2-devel >= 2.0.0
+BuildRequires:	libxml2-devel >= 1:2.9.1
+BuildRequires:	meson >= 0.50.0
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
+BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	sed >= 4.0
+BuildRequires:	tar >= 1:1.22
 %{?with_vala:BuildRequires:	vala >= 0.13}
-Requires:	glib2 >= 1:2.38.0
+BuildRequires:	xz
+Requires:	glib2 >= 1:2.48.0
 Requires:	libvirt >= 1.2.8
-Obsoletes:	python-libvirt-glib
+Requires:	libxml2 >= 1:2.9.1
+Obsoletes:	python-libvirt-glib < 1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -42,9 +46,9 @@ Summary:	Header files for libvirt-glib library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libvirt-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.38.0
+Requires:	glib2-devel >= 1:2.48.0
 Requires:	libvirt-devel >= 1.2.8
-Requires:	libxml2-devel >= 2.0.0
+Requires:	libxml2-devel >= 1:2.9.1
 
 %description devel
 Header files for libvirt-glib library.
@@ -92,28 +96,26 @@ API libvirt-glib dla języka Vala.
 
 %prep
 %setup -q
-%patch0 -p1
+
+%if %{with static_libs}
+%{__sed} -i -e '/^libvirt_gconfig = / s/shared_library/library/' libvirt-gconfig/meson.build
+%{__sed} -i -e '/^libvirt_glib = / s/shared_library/library/' libvirt-glib/meson.build
+%{__sed} -i -e '/^libvirt_gobject = / s/shared_library/library/' libvirt-gobject/meson.build
+%endif
+
+%{__sed} -i -e "s/datadir, 'gtk-doc'/datadir, 'doc', 'gtk-doc'/" docs/libvirt-{gconfig,glib,gobject}/meson.build
 
 %build
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	%{__enable_disable apidocs gtk-doc} \
-	--disable-silent-rules \
-	%{?with_static_libs:--enable-static} \
-	--with-html-dir=%{_gtkdocdir}
-%{__make}
+%meson build \
+	%{!?with_apidocs:-Ddocs=disabled}
+	%{!?with_vala:-Dvapi=disabled}
+
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+%ninja_install -C build
 
 %find_lang %{name}
 
@@ -125,7 +127,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README
+%doc AUTHORS NEWS README
 %attr(755,root,root) %{_libdir}/libvirt-gconfig-1.0.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libvirt-gconfig-1.0.so.0
 %attr(755,root,root) %{_libdir}/libvirt-glib-1.0.so.*.*.*
@@ -170,7 +172,9 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with vala}
 %files -n vala-libvirt-glib
 %defattr(644,root,root,755)
+%{_datadir}/vala/vapi/libvirt-gconfig-1.0.deps
 %{_datadir}/vala/vapi/libvirt-gconfig-1.0.vapi
+%{_datadir}/vala/vapi/libvirt-glib-1.0.deps
 %{_datadir}/vala/vapi/libvirt-glib-1.0.vapi
 %{_datadir}/vala/vapi/libvirt-gobject-1.0.deps
 %{_datadir}/vala/vapi/libvirt-gobject-1.0.vapi
