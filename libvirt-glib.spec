@@ -7,20 +7,21 @@
 Summary:	GLib wrapper for libvirt library
 Summary(pl.UTF-8):	Wrapper GLib dla biblioteki libvirt
 Name:		libvirt-glib
-Version:	4.0.0
+Version:	5.0.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.xz
-# Source0-md5:	0d0932949cde8a8933f6fb6aaf66dfe0
+Source0:	https://download.libvirt.org/glib/%{name}-%{version}.tar.xz
+# Source0-md5:	2e36b42b91bb98fac22321b5afc5a835
 URL:		https://libvirt.org/
+BuildRequires:	gcc >= 6:4.8
 BuildRequires:	glib2-devel >= 1:2.48.0
 BuildRequires:	gobject-introspection-devel >= 1.36.0
 BuildRequires:	gtk-doc >= 1.10
 BuildRequires:	intltool >= 0.35.0
-BuildRequires:	libvirt-devel >= 1.2.8
+BuildRequires:	libvirt-devel >= 2.3.0
 BuildRequires:	libxml2-devel >= 1:2.9.1
-BuildRequires:	meson >= 0.50.0
+BuildRequires:	meson >= 0.56.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
@@ -30,7 +31,7 @@ BuildRequires:	tar >= 1:1.22
 %{?with_vala:BuildRequires:	vala >= 0.13}
 BuildRequires:	xz
 Requires:	glib2 >= 1:2.48.0
-Requires:	libvirt >= 1.2.8
+Requires:	libvirt >= 2.3.0
 Requires:	libxml2 >= 1:2.9.1
 Obsoletes:	python-libvirt-glib < 1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -47,7 +48,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libvirt-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.48.0
-Requires:	libvirt-devel >= 1.2.8
+Requires:	libvirt-devel >= 2.3.0
 Requires:	libxml2-devel >= 1:2.9.1
 
 %description devel
