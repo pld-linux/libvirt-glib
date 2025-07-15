@@ -107,16 +107,16 @@ API libvirt-glib dla języka Vala.
 %{__sed} -i -e "s/datadir, 'gtk-doc'/datadir, 'doc', 'gtk-doc'/" docs/libvirt-{gconfig,glib,gobject}/meson.build
 
 %build
-%meson build \
+%meson \
 	%{!?with_apidocs:-Ddocs=disabled}
 	%{!?with_vala:-Dvapi=disabled}
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %find_lang %{name}
 
